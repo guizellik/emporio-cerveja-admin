@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 
 const initialState = {
-  token: '',
-  setToken: (token) => token
+  user: undefined,
+  setUser: (user) => user
 }
 
-export const GlobalContext = React.createContext(initialState)
+export const AuthContext = React.createContext(initialState)
 
-const GlobalProvider = ({ children }) => {
-  const [token, setToken] = useState('')
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(undefined)
+
   return (
-    <GlobalContext.Provider
-      value={{ token, setToken }}
+    <AuthContext.Provider
+      value={{ user, setUser }}
     >
       {children}
-    </GlobalContext.Provider>
+    </AuthContext.Provider>
   )
 }
 
-export default GlobalProvider
+export default AuthProvider

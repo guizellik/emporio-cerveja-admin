@@ -1,14 +1,14 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
+import { decodeToken } from 'react-jwt'
 import axios from 'axios'
 
-import UserDataLogin from '../../types/users'
-import { GlobalContext } from '../../context'
+import { AuthContext } from '../../context'
 
 import * as S from './styles'
 
 const Login = () => {
-  const { setToken } = useContext(GlobalContext)
+  const { setUser } = useContext(AuthContext)
   const router = useRouter()
   const loginInputRef = useRef<HTMLInputElement>(null)
   const passwordInputRef = useRef<HTMLInputElement>(null)
@@ -22,7 +22,9 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:4000/login', User)
       localStorage.setItem("token", response.data.accessToken)
-      setToken(response.data.accessToken)
+      const userId = decodeToken(response.data.accessToken).sub
+      const userData = await axios.get(`http://localhost:4000/users/${userId}`)
+      setUser(userData.data)
       router.push('/home')
     } catch (erro) {
       alert(`${erro} - Usuário não identificado`)
