@@ -10,7 +10,7 @@ const Home = () => {
   const [productList, setProductList] = useState([])
   const router = useRouter()
   const { user } = useContext(AuthContext)
-  const auth = (user.role === 'admin')
+  const authCondition = (user?.role === 'admin')
 
   const fetchUserList = async () => {
     try {
@@ -33,13 +33,18 @@ const Home = () => {
     }
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem(localToken);
+    router.push('/login')
+  }
+
   useEffect(() => {
     localToken = localStorage.getItem('token')
-    if (localToken) {
+    if (!localToken || !user) {
+      router.push('/login')
+    } else {
       fetchUserList()
       fetchProductList()
-    } else {
-      router.push('/login')
     }
   }, [localToken])
 
@@ -47,12 +52,16 @@ const Home = () => {
     <div>
       <p>Número de usuários: {userList.length}</p>
       <p>Número de produtos: {productList.length}</p>
-      {auth ?
+      {authCondition ?
         <Link href='/users'>
           <a>Ir para Lista de Usuários</a>
         </Link>
       : ''
       }
+      <Link href='/products'>
+        <a>Ir para página de produtos</a>
+      </Link>
+      <button onClick={handleLogout}>Deslogar</button>
     </div>
   )
 }
