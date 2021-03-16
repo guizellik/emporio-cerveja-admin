@@ -4,6 +4,7 @@ import { decodeToken } from 'react-jwt'
 import axios from 'axios'
 
 import { AuthContext } from '../../context'
+import Button from '../../components/Button'
 
 import * as S from './styles'
 
@@ -33,9 +34,28 @@ const Login = () => {
 
   return (
     <S.LoginWrapper>
-      Login: <input type='text' ref={loginInputRef} placeholder='Digite o seu login aqui...'></input>
-      Password: <input type='password' ref={passwordInputRef} placeholder='Digite a sua senha aqui...'></input>
-      <button onClick={handleLogin}>Login</button>
+      <S.Title>
+        Empório ADMIN
+      </S.Title>
+      <S.InputWrapper>
+        <S.InputText
+        type='text'
+        ref={loginInputRef}
+        placeholder='Informe seu email'
+        >
+        </S.InputText>
+      </S.InputWrapper>
+      <S.InputWrapper>
+        <S.InputText
+        type='password'
+        ref={passwordInputRef}
+        placeholder='Informe sua senha'
+        >
+        </S.InputText>
+      </S.InputWrapper>
+      <Button backgroundColor='#FFC300' onClick={handleLogin}>
+        Login
+      </Button>
     </S.LoginWrapper>
   )
 }

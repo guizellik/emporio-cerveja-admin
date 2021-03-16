@@ -6,6 +6,11 @@ import { useRouter } from 'next/router'
 
 import { AuthContext } from '../../context'
 import { decodeToken } from 'react-jwt'
+import Layout from '../../components/Layout'
+import Button from '../../components/Button'
+
+
+import * as S from './styles'
 
 
 const RegisterUser = () => {
@@ -51,25 +56,23 @@ const RegisterUser = () => {
   }, [user])
 
   return (
-    <div>
-        <input type='text' ref={nameInput} placeholder='Digite seu nome aqui...' required></input>
-        <input type='email' ref={emailInput} placeholder='Digite seu e-mail aqui...' required></input>
-        <input type='password' ref={passwordInput} placeholder='Digite sua senha aqui...' required></input>
-        <label >Escolha um role: </label>
-        <select ref={roleSelect} name="role" id="role">
-          <option value="admin">admin</option>
-          <option value="editor">editor</option>
-        </select>
-        <button onClick={handleRegisterUser}>Cadastrar</button>
-        { authCondition ?
-        <Link href='/users'>
-          <a>Voltar para página de Usuários</a>
-        </Link>
-        : ''}
-        <Link href='/home'>
-          <a>Voltar para Home</a>
-        </Link>
-    </div>
+    <Layout>
+      <S.RegisterUserWrapper>
+        <S.Title>Cadastro de Usuário</S.Title>
+          <S.RegisterUserInput type='text' ref={nameInput} placeholder='Nome' required></S.RegisterUserInput>
+          <S.RegisterUserInput type='email' ref={emailInput} placeholder='E-mail' required></S.RegisterUserInput>
+          <S.RegisterUserInput type='password' ref={passwordInput} placeholder='Senha' required></S.RegisterUserInput>
+          <S.RegisterUserLabel>Nível de acesso</S.RegisterUserLabel>
+          <S.RegisterUserSelect ref={roleSelect} name="role" id="role">
+            <option disabled selected>-- select an option --</option>
+            <option value="admin">admin</option>
+            <option value="editor">editor</option>
+          </S.RegisterUserSelect>
+          <Button backgroundColor='#F8A849'
+          onClick={handleRegisterUser}>Cadastrar</Button>
+      </S.RegisterUserWrapper>
+
+    </Layout>
   )
 }
 

@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { decodeToken } from 'react-jwt'
 import Link from 'next/link'
 
 import { AuthContext } from '../../context'
 import UserData from '../../types/users'
+import Layout from '../../components/Layout';
+
+import * as S from './styles'
 
 
 const Users = () => {
@@ -14,7 +17,6 @@ const Users = () => {
   const router = useRouter()
   const { setUser, user } = useContext(AuthContext)
   const [userList, setUserList] = useState([])
-  const authCondition = (user?.role === 'admin')
 
   const fetchUserList = async () => {
     try {
@@ -55,28 +57,23 @@ const Users = () => {
   }, [user])
 
   return (
-    <div>
-      <p>Lista de Usuários</p>
-      {
-        userList.map((item: UserData) => {
-          return (
-            <li key={item.id}>
-              {item.name} - {item.role}
-              <DeleteForeverIcon onClick={() => handleDelete(item.id)} />
-            </li>
-          )
-        })
-      }
-      {authCondition ?
-        <Link href='/registerUser'>
-          <a>Cadastrar Usuário</a>
-        </Link>
-      : ''
-      }
-      <Link href='/home'>
-        <a>Voltar para Home</a>
-      </Link>
-    </div>
+    <Layout>
+      <S.UserWrapper>
+        <h1>Lista de Usuários</h1>
+        <S.UserList>
+        {
+          userList.map((item: UserData) => {
+            return (
+              <S.UserListItem key={item.id}>
+                Nome: {item.name} - Role: {item.role}
+                <HighlightOffIcon onClick={() => handleDelete(item.id)} />
+              </S.UserListItem>
+            )
+          })
+        }
+        </S.UserList>
+      </S.UserWrapper>
+    </Layout>
   )
 }
 

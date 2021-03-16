@@ -1,12 +1,14 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { decodeToken } from 'react-jwt'
-import Link from 'next/link'
-
+import { toast } from 'react-toastify';
 
 import { AuthContext } from '../../context'
+import Layout from '../../components/Layout'
+
+import * as S from './styles'
 
 const Products = () => {
   let localToken
@@ -14,7 +16,6 @@ const Products = () => {
   const { setUser, user } = useContext(AuthContext)
   const [productList, setProductList] = useState([])
   const authCondition = (user?.role === 'admin')
-
 
   const fetchProductList = async () => {
     try {
@@ -34,6 +35,7 @@ const Products = () => {
         'Authorization': `Bearer ${localToken}`
       }
       await axios.delete(`http://localhost:4000/beers/${productToBeDeletedId}`, { headers: headers })
+      toast('Produto apagado com sucesso!')
       fetchProductList()
     } catch (error) {
       throw new Error(`Erro ao deletar produto: ${error}`)
@@ -55,23 +57,18 @@ const Products = () => {
     }
   }, [user])
 
-
   return (
-    <div>
-      <h1>Sou a página de produtos</h1>
-      {productList.map(product => (
-        <p key={product.id}>
-          {product.title} - {product.price}
-          { authCondition ? <DeleteForeverIcon onClick={() => handleDelete(product.id)}/> : '' }
-        </p>
-      ))}
-      <Link href='/registerProduct'>
-          <a>Cadastrar Produtos</a>
-      </Link>
-      <Link href='/home'>
-          <a>Voltar para Home</a>
-      </Link>
-    </div>
+    <Layout>
+      <S.ProductWrapper>
+        <S.Title>Lista de produtos</S.Title>
+        {productList.map(product => (
+          <S.ProductDetails key={product.id}>
+            {product.title} - R$ {product.price}
+            {authCondition ? <HighlightOffIcon onClick={() => handleDelete(product.id)}/> : ''}
+          </S.ProductDetails>
+        ))}
+      </S.ProductWrapper>
+    </Layout>
   )
 }
 

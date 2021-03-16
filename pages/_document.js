@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>My page</title>
+          <title>Empório ADMIN</title>
           {this.props.styleTags}
         </Head>
         <body>

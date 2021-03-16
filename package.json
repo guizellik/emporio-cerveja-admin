@@ -12,9 +12,11 @@
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "next": "^...",
+    "next-images": "^1.7.0",
     "react": "^...",
     "react-dom": "^...",
     "react-jwt": "^1.1.2",
+    "react-toastify": "^7.0.3",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
