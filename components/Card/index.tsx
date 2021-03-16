@@ -6,13 +6,13 @@ export interface CardProps {
   title: string,
 }
 
-const Card = (props) => {
+const Card = (props: CardProps) => {
   const { children, title } = props
   return (
       <S.Card>
         <S.CardContentWrapper>
           <S.Title>{title}</S.Title>
-          <S.Amount>{children}</S.Amount>
+          {children}
         </S.CardContentWrapper>
       </S.Card>
   )

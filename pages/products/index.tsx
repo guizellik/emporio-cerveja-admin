@@ -4,17 +4,20 @@ import axios from 'axios'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { decodeToken } from 'react-jwt'
 import { toast } from 'react-toastify';
+import { NextPage } from 'next'
 
 import { AuthContext } from '../../context'
 import Layout from '../../components/Layout'
+import { ProductData } from '../../types/products'
+
 
 import * as S from './styles'
 
-const Products = () => {
-  let localToken
+const Products: NextPage = () => {
+  let localToken: string;
   const router = useRouter()
   const { setUser, user } = useContext(AuthContext)
-  const [productList, setProductList] = useState([])
+  const [productList, setProductList] = useState<ProductData[]>([])
   const authCondition = (user?.role === 'admin')
 
   const fetchProductList = async () => {
@@ -35,17 +38,18 @@ const Products = () => {
         'Authorization': `Bearer ${localToken}`
       }
       await axios.delete(`http://localhost:4000/beers/${productToBeDeletedId}`, { headers: headers })
-      toast('Produto apagado com sucesso!')
+      toast.success('Produto removido com sucesso!')
       fetchProductList()
-    } catch (error) {
-      throw new Error(`Erro ao deletar produto: ${error}`)
+    } catch (erro) {
+      toast.success('Erro ao remover o produto')
+      console.log(erro)
     }
   }, [localToken])
 
   useEffect(() => {
     localToken = localStorage.getItem('token')
     if (localToken && !user) {
-      const userId = decodeToken(localToken).sub
+      const userId: number = decodeToken(localToken).sub
       axios.get(`http://localhost:4000/users/${userId}`).then(
         (response: any) => setUser(response.data)
       )
@@ -61,7 +65,7 @@ const Products = () => {
     <Layout>
       <S.ProductWrapper>
         <S.Title>Lista de produtos</S.Title>
-        {productList.map(product => (
+        {productList.map((product: ProductData) => (
           <S.ProductDetails key={product.id}>
             {product.title} - R$ {product.price}
             {authCondition ? <HighlightOffIcon onClick={() => handleDelete(product.id)}/> : ''}

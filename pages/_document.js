@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
-          <title>Empório ADMIN</title>
+          <title>Empório da Cerveja</title>
           {this.props.styleTags}
         </Head>
         <body>

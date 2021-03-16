@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const RegisterUserWrapper = styled.div`
+export const RegisterProductWrapper = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@ export const Title = styled.h1`
   margin-bottom: 30px;
 `
 
-export const RegisterUserInput = styled.input`
+export const RegisterProductInput = styled.input`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -23,23 +23,8 @@ export const RegisterUserInput = styled.input`
   width: 14rem;
   font-size: 13px;
   margin: 8px;
+  &:last-of-type {
+    margin-bottom: 20px;
+  }
+
 `
-
-export const RegisterUserLabel = styled.label`
-  font-size: 13px;
-  margin: 8px;
-`
-
-export const RegisterUserSelect = styled.select`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border: none;
-	border-bottom: 1px solid #ddd;
-  width: 14.5rem;
-  font-size: 13px;
-  margin-bottom: 20px;
-`
-
-
-

@@ -3,17 +3,18 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { decodeToken } from 'react-jwt'
-import Link from 'next/link'
+import { toast } from 'react-toastify'
+import { NextPage } from 'next'
 
 import { AuthContext } from '../../context'
-import UserData from '../../types/users'
+import { UserData } from '../../types/users'
 import Layout from '../../components/Layout';
 
 import * as S from './styles'
 
 
-const Users = () => {
-  let localToken
+const Users: NextPage = () => {
+  let localToken: string;
   const router = useRouter()
   const { setUser, user } = useContext(AuthContext)
   const [userList, setUserList] = useState([])
@@ -23,7 +24,8 @@ const Users = () => {
       const response = await axios.get('http://localhost:4000/users?role=admin&role=editor')
       setUserList(response.data)
     } catch (erro) {
-      alert("Ocorreu um erro ao buscar os usuários")
+      toast.error('Ocorreu um erro ao buscar os usuários')
+      console.log(erro)
     }
   }
 
@@ -33,16 +35,18 @@ const Users = () => {
         'Authorization': `Bearer ${localToken}`
       }
       await axios.delete(`http://localhost:4000/users/${userToBeDeletedId}`, { headers: headers })
+      toast.success(`Usuário removido com sucesso`)
       fetchUserList()
-    } catch (error) {
-      throw new Error(`Erro ao deletar usuário: ${error}`)
+    } catch (erro) {
+      toast.error(`Erro ao remover usuário`)
+      console.log(erro)
     }
   }
 
   useEffect(() => {
     localToken = localStorage.getItem('token')
     if (localToken && !user) {
-      const userId = decodeToken(localToken).sub
+      const userId: number = decodeToken(localToken).sub
       axios.get(`http://localhost:4000/users/${userId}`).then(
         (response: any) => setUser(response.data)
       )
@@ -65,7 +69,7 @@ const Users = () => {
           userList.map((item: UserData) => {
             return (
               <S.UserListItem key={item.id}>
-                Nome: {item.name} - Role: {item.role}
+                Nome: {item.name} - Nível de Acesso: {item.role}
                 <HighlightOffIcon onClick={() => handleDelete(item.id)} />
               </S.UserListItem>
             )

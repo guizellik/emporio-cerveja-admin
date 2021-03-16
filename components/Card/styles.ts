@@ -33,8 +33,3 @@ export const CardContentWrapper = styled.div`
 export const Title = styled.p`
   font-weight: bold;
 `
-
-export const Amount = styled.span`
-  font-weight: bold;
-  color: #4008FC;
-`

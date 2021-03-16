@@ -8,3 +8,7 @@ export const HomeWrapper = styled.div`
 export const Row = styled.div`
   display: flex;
 `
+export const CardNumber = styled.span`
+  font-weight: bold;
+  color: #0352F9;
+`

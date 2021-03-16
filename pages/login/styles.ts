@@ -1,32 +1,34 @@
 import styled from 'styled-components'
 
-export const InputWrapper = styled.p`
-	outline: none;
-	display: block;
-	padding: 7px;
-	background: transparent;
-	font: 16px Arial, Helvetica, sans-serif;
-	height: 45px;
-  width: 15%;
-`
+
+export const LoginLayout = styled.div`
+  align-items: center;
+  background-color: rgba(248, 168, 73, 1);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+  `
 
 export const LoginWrapper = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-family: Arial, Helvetica, sans-serif;
   height: 100%;
   justify-content: center;
+  padding: 20px;
 `
 
-export const Title = styled.p`
-  font-size: 2rem;
-  margin: 40px 0;
+export const InputWrapper = styled.div`
+  padding: 20px;
 `
 
 export const InputText = styled.input`
   border: none;
 	border-bottom: 1px solid #ddd;
-  width: 11rem;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin: 20px;
 `
 

@@ -10,7 +10,6 @@ export const Button = styled.button`
   color: black;
   cursor: pointer;
   display: flex;
-  font-family: arial, helvetica, sans-serif;
   font-size: 14px;
   font-weight: bold;
   justify-content: center;
@@ -18,8 +17,9 @@ export const Button = styled.button`
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
-  transition: 0.2s ease-out;
+  transition: all .3s;
+  position: relative;
   &:hover {
-    opacity: 0.6;
+    color: #fff;
   }
 `

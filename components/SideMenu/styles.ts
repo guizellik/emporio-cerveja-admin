@@ -10,7 +10,6 @@ export const MenuWrapper = styled.div`
 
 export const NavBar = styled.nav`
   display: flex;
-  font-family: arial, helvetica, sans-serif;
   flex-direction: column;
   height: auto;
   width: auto;
@@ -44,9 +43,10 @@ export const MenuCategory = styled.span`
 `
 
 export const MenuLink = styled.a`
-  display: block;
+  align-items: center;
   color: #000;
-  padding: 8px 16px;
+  display: flex;
+  padding: 4px 16px;
   text-decoration: none;
   /* &.active {
     background-color: #4CAF50;
@@ -56,10 +56,6 @@ export const MenuLink = styled.a`
     background-color: #555;
     color: white;
   }
-  /* &:hover:not(.active) {
-    background-color: #555;
-    color: white;
-  } */
 `
 
 export const Logo = styled.img`

@@ -1,11 +1,12 @@
 import axios from 'axios'
-import Link from 'next/link'
 import React, { useContext, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-
+import { toast } from 'react-toastify'
+import { NextPage } from 'next'
 
 import { AuthContext } from '../../context'
 import { decodeToken } from 'react-jwt'
+import { RegisterUserPayload } from '../../types/users'
 import Layout from '../../components/Layout'
 import Button from '../../components/Button'
 
@@ -13,8 +14,8 @@ import Button from '../../components/Button'
 import * as S from './styles'
 
 
-const RegisterUser = () => {
-  let localToken
+const RegisterUser: NextPage = () => {
+  let localToken: string;
 
   const nameInput = useRef<HTMLInputElement>(null)
   const emailInput = useRef<HTMLInputElement>(null)
@@ -22,22 +23,31 @@ const RegisterUser = () => {
   const roleSelect = useRef<HTMLSelectElement>(null)
 
   const { setUser, user } = useContext(AuthContext)
-  const authCondition = (user?.role === 'admin')
   const router = useRouter()
 
 
   const handleRegisterUser = async () => {
-    const newUser = {
-      name: nameInput.current?.value,
-      email: emailInput.current?.value,
-      password: passwordInput.current?.value,
-      role: roleSelect.current?.value
-    }
-    try {
-      const register = await axios.post('http://localhost:4000/users/', newUser)
-      alert('Usuário cadastrado com sucesso!')
-    } catch (erro) {
-      alert(`${erro} - Não foi possível cadastrar usuário`)
+    const formUserValidation = nameInput.current?.value &&
+    emailInput.current?.value &&
+    passwordInput.current?.value &&
+    roleSelect.current?.value
+
+    if (formUserValidation) {
+      const newUser: RegisterUserPayload  = {
+        name: nameInput.current?.value,
+        email: emailInput.current?.value,
+        password: passwordInput.current?.value,
+        role: roleSelect.current?.value
+      }
+      try {
+        await axios.post('http://localhost:4000/users/', newUser)
+        toast.success('Usuário cadastrado com sucesso!')
+      } catch (erro) {
+        toast.error(`Não foi possível cadastrar usuário`)
+        console.log(erro)
+      }
+    } else {
+      toast.error('Preencha todos os campos')
     }
   }
 
@@ -64,7 +74,6 @@ const RegisterUser = () => {
           <S.RegisterUserInput type='password' ref={passwordInput} placeholder='Senha' required></S.RegisterUserInput>
           <S.RegisterUserLabel>Nível de acesso</S.RegisterUserLabel>
           <S.RegisterUserSelect ref={roleSelect} name="role" id="role">
-            <option disabled selected>-- select an option --</option>
             <option value="admin">admin</option>
             <option value="editor">editor</option>
           </S.RegisterUserSelect>
