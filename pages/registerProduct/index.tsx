@@ -33,7 +33,7 @@ const RegisterProduct: NextPage = () => {
     if (formProductValidation) {
       const newProduct: ProductPayload = {
         title: titleInput.current?.value,
-        price: priceInput.current?.value,
+        price: parseFloat(priceInput.current?.value.replace(',' , '.')),
         description: descriptionInput.current?.value,
         image: imageInput.current?.value
       }
