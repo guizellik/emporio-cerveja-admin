@@ -23,16 +23,6 @@ Third Step - Using 'Empório da Cerveja Admin' the application itself
   Login editor
   email: mauricio@google.com | senha: 123123
 
-  2. Once you are logged (keep in mind that the fake API must be running on the background) - and if the chosen credential is administrator - will be possible to see all the pages.
-  3. The application will start at home page. On this page, it is possible to see only the amount of users and products available.
-  4. Only if you logged as admin: If you click on 'Lista', you will be redirected to the full user list. To delete any of the users, click on x button.
-  5. Only if you logged as admin: by clicking on 'Cadastro' on 'Usuários' section, a form will be available to add new users. **Important: all the fields are mandatory**
-  6. To return to the 'Home' page, simply click on the Empório da cerveja logo.
-  7. Only if you logged as admin: On the 'Cadastro' page, it is possible to create new users and define their roles. Once all the fields are filled properly, click on 'Cadastrar' button.
-  8. All of the users can access 'Produtos' section and add new products but only the admin user will be able to delete it.
-  9. By clicking on 'Lista' on 'Produtos' section, a list of products will be shown. To delete any of them (only admin will see) click on x button.
-  10. By clicking on 'Cadastro' on 'Produtos' section, a form will be available to add new products. **Important: all the fields are mandatory**
-
 Forth Step - Downloading and installing 'Empório da Cerveja Website'
   1. To download it please follow this link: https://github.com/guizellik/emporio-da-cerveja-projeto5
   2. Download through the repository as ZIP or clone direct from Github (depending on your preference)
@@ -46,7 +36,7 @@ Forth Step - Downloading and installing 'Empório da Cerveja Website'
 Fifth Step - Using 'Empório da Cerveja Website' the application itself
   1. Create your own login by filling all the related fields - notice that you need to be older than 18 to access it. Once every field is filled, click on 'Cadastro' button.
   2. You will be entering at the 'Home' page.
-  3. To add a product to the cart, simply click on 'Comprar' button.
+
 
 
 
